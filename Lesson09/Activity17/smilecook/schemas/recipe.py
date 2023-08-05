@@ -40,7 +40,11 @@ class RecipeSchema(Schema):
 
     def dump_cover_url(self, recipe):
         if recipe.cover_image:
-            return url_for('static', filename='images/recipes/{}'.format(recipe.cover_image), _external=True)
+            return url_for(
+                'static',
+                filename=f'images/recipes/{recipe.cover_image}',
+                _external=True,
+            )
         else:
             return url_for('static', filename='images/assets/default-recipe-cover.jpg', _external=True)
 

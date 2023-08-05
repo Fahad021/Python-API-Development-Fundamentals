@@ -16,15 +16,11 @@ class MailgunApi:
             to = [to, ]
 
         data = {
-            'from': 'SmileCook <no-reply@{}>'.format(self.domain),
+            'from': f'SmileCook <no-reply@{self.domain}>',
             'to': to,
             'subject': subject,
             'text': text,
-            'html': html
+            'html': html,
         }
 
-        response = requests.post(url=self.base_url,
-                                 auth=('api', self.key),
-                                 data=data)
-
-        return response
+        return requests.post(url=self.base_url, auth=('api', self.key), data=data)

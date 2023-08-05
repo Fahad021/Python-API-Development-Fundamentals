@@ -37,7 +37,7 @@ def verify_token(token, max_age=(30 * 60), salt=None):
 
 def save_image(image, folder):
 
-    filename = '{}.{}'.format(uuid.uuid4(), extension(image.filename))
+    filename = f'{uuid.uuid4()}.{extension(image.filename)}'
     image_set.save(image, folder=folder, name=filename)
 
     filename = compress_image(filename=filename, folder=folder)
@@ -58,7 +58,7 @@ def compress_image(filename, folder):
         maxsize = (1600, 1600)
         image.thumbnail(maxsize)
 
-    compressed_filename = '{}.jpg'.format(uuid.uuid4())
+    compressed_filename = f'{uuid.uuid4()}.jpg'
     compressed_file_path = image_set.path(filename=compressed_filename, folder=folder)
 
     image.save(compressed_file_path, optimize=True, quality=85)
@@ -67,7 +67,9 @@ def compress_image(filename, folder):
     compressed_size = os.stat(compressed_file_path).st_size
     percentage = round((original_size - compressed_size) / original_size * 100)
 
-    print("The file size is reduced by {}%, from {} to {}.".format(percentage, original_size, compressed_size))
+    print(
+        f"The file size is reduced by {percentage}%, from {original_size} to {compressed_size}."
+    )
 
     os.remove(file_path)
 

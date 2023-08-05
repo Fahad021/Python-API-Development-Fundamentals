@@ -23,9 +23,9 @@ def get_recipes():
 
 @app.route('/recipes/<int:recipe_id>', methods=['GET'])
 def get_recipe(recipe_id):
-    recipe = next((recipe for recipe in recipes if recipe['id'] == recipe_id), None)
-
-    if recipe:
+    if recipe := next(
+        (recipe for recipe in recipes if recipe['id'] == recipe_id), None
+    ):
         return jsonify(recipe)
 
     return jsonify({'message': 'recipe not found'}), HTTPStatus.NOT_FOUND

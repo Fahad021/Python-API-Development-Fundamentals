@@ -22,7 +22,7 @@ class PaginationSchema(Schema):
         query_args = request.args.to_dict()
         query_args['page'] = page
 
-        return '{}?{}'.format(request.base_url, urlencode(query_args))
+        return f'{request.base_url}?{urlencode(query_args)}'
 
     def get_pagination_links(self, paginated_objects):
 

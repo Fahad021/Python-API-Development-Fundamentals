@@ -22,7 +22,11 @@ class UserSchema(Schema):
 
     def dump_avatar_url(self, user):
         if user.avatar_image:
-            return url_for('static', filename='images/avatars/{}'.format(user.avatar_image), _external=True)
+            return url_for(
+                'static',
+                filename=f'images/avatars/{user.avatar_image}',
+                _external=True,
+            )
         else:
             return url_for('static', filename='images/assets/default-avatar.jpg', _external=True)
 

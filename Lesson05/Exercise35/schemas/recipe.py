@@ -29,9 +29,7 @@ class RecipeSchema(Schema):
 
     @post_dump(pass_many=True)
     def wrap(self, data, many, **kwargs):
-        if many:
-            return {'data': data}
-        return data
+        return {'data': data} if many else data
 
     @validates('cook_time')
     def validate_cook_time(self, value):

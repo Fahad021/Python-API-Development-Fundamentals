@@ -53,7 +53,7 @@ class UserListResource(Resource):
                        token=token,
                        _external=True)
 
-        text = 'Hi, Thanks for using SmileCook! Please confirm your registration by clicking on the link: {}'.format(link)
+        text = f'Hi, Thanks for using SmileCook! Please confirm your registration by clicking on the link: {link}'
 
         mailgun.send_email(to=user.email,
                            subject=subject,
@@ -105,9 +105,7 @@ class UserRecipeListResource(Resource):
 
         current_user = get_jwt_identity()
 
-        if current_user == user.id and visibility in ['all', 'private']:
-            pass
-        else:
+        if current_user != user.id or visibility not in ['all', 'private']:
             visibility = 'public'
 
         recipes = Recipe.get_all_by_user(user_id=user.id, visibility=visibility)

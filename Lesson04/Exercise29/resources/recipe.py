@@ -12,11 +12,7 @@ class RecipeListResource(Resource):
 
         recipes = Recipe.get_all_published()
 
-        data = []
-
-        for recipe in recipes:
-            data.append(recipe.data())
-
+        data = [recipe.data() for recipe in recipes]
         return {'data': data}, HTTPStatus.OK
 
     @jwt_required

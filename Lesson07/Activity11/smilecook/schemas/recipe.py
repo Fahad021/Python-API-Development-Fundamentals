@@ -31,9 +31,7 @@ class RecipeSchema(Schema):
 
     @post_dump(pass_many=True)
     def wrap(self, data, many, **kwargs):
-        if many:
-            return {'data': data}
-        return data
+        return {'data': data} if many else data
 
     @validates('cook_time')
     def validate_cook_time(self, value):
@@ -44,6 +42,10 @@ class RecipeSchema(Schema):
 
     def dump_cover_url(self, recipe):
         if recipe.cover_image:
-            return url_for('static', filename='images/recipes/{}'.format(recipe.cover_image), _external=True)
+            return url_for(
+                'static',
+                filename=f'images/recipes/{recipe.cover_image}',
+                _external=True,
+            )
         else:
             return url_for('static', filename='images/assets/default-recipe-cover.jpg', _external=True)
